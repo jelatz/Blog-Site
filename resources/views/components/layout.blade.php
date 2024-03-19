@@ -7,12 +7,17 @@
     
     {{-- CSS --}}
     @vite('resources/css/app.css', 'resources/js/app.js')
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    
 
     {{-- SCRIPTS --}}
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.7/dist/cdn.min.js"></script>
+    <script src="{{asset('js/custom.js')}}"></script>
     <title>@yield('title')</title>
 </head>
 <body>
     <main>
+        <x-flash-message />
         {{ $slot }}
     </main>
 </body>
