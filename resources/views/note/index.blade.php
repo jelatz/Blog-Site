@@ -1,8 +1,9 @@
-<x-layout>
-    <div class="container mx-auto px-3 my-32 bg-slate-100 py-3">
+<x-app-layout>
+    @section('title', 'Notes - Dashboard')
+    <div class="container mx-auto px-3 my-5 bg-slate-100 py-3">
         <div class="flex justify-between items-center">
-            <h1 class="text-3xl">Notes</h1>
-            <a href="{{ route('note.create') }}" class="px-2 py-1 bg-gray-500 hover:bg-gray-300">New Note</a>
+            <h1 class="text-3xl text-black">Notes</h1>
+            <a href="{{ route('note.create') }}" class="px-2 py-1 bg-gray-500 hover:bg-gray-300 text-black">New Note</a>
         </div>
         <div class="flex justify-center md:justify-center gap-5 md:gap-y-10 items-center flex-wrap mt-5 py-10">
             @foreach ($notes as $note)
@@ -29,4 +30,4 @@
 
         {{$notes->links()}}
     </div>
-</x-layout>
+</x-app-layout>

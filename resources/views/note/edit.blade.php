@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="min-h-screen place-items-center grid">
         <x-card class="border-0 w-98 px-3">
             <h1 class="text-3xl border-b-2 pb-2">Edit Note</h1>
@@ -18,4 +18,4 @@
             </x-primary-btn>
         </x-card>
     </div>
-</x-layout>
+</x-app-layout>
