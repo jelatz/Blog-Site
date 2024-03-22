@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\forms;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class GuestLayout extends Component
+class input extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class GuestLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.guest-layout');
+        return view('components.forms.input');
     }
 }

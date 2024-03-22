@@ -12,15 +12,10 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                roboto: ['Roboto', ...defaultTheme.fontFamily.sans],
+                roboto: ['Roboto','sans-serif'],
             },
-            colors: {
-                primary: '#2E0E02',
-                secondary: '#581908',
-                btn: '#983628',
-                border: '#E2AEDD',
-                accent: '#EBCBF4'
+            backgroundImage: {
+                'home-hero': "url('/public/images/home-hero.jpg)",
             }
         },
     },
