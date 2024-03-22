@@ -15,9 +15,13 @@ export default {
                 roboto: ['Roboto','sans-serif'],
             },
             backgroundImage: {
-                'home-hero': "url('/public/images/home-hero.jpg)",
+                'home-hero': "url('/public/images/home-hero.jpg')",
+            },
+            container: {
+                center: true,
             }
         },
+        
     },
 
     plugins: [forms],
