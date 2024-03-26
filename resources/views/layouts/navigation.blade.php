@@ -12,8 +12,8 @@
 
         <!-- Navigation links -->
         <div id="menu" class="hidden md:flex space-x-20">
-            <a href="#" class="text-white hover:text-red-800">Home</a>
-            <a href="#" class="text-white hover:text-red-800">About Us</a>
+            <a href="{{ route('home') }}" class="text-white hover:text-red-800 {{ request()->routeIs('home') ? 'underline-offset-8 underline' : '' }}">Home</a>
+            <a href="{{route('about')}}" class="text-white hover:text-red-800 {{request()->routeIs('about') ? 'underline-offset-8 underline' : ''}}">About Us</a>
             <a href="#" class="text-white hover:text-red-800">Blogs</a>
             <a href="#" class="text-white hover:text-red-800">Contact Us</a>
         </div>
