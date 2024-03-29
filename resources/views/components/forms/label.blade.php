@@ -1,3 +1,6 @@
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
+@props(['for']);
+
+
+<label {{$attributes->merge(['class', 'text-lg font-bold'])}} for="">
+    {{$slot}}
+</label>
