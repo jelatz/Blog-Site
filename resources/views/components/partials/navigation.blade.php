@@ -13,15 +13,16 @@
         <!-- Navigation links -->
         <div id="menu" class="hidden md:flex space-x-5">
             {{-- <a href="{{route('contact-us')}}" class="hover:text-red-800 {{request()->routeIs('contact-us') ? 'underline-offset-8 underline' : ''}}">Contact Us</a> --}}
-            <a href="#" class="hover:text-red-800 {{request()->routeIs('contact-us') ? 'underline-offset-8 underline' : ''}}">Login</a>
-            <a href="#" class="hover:text-red-800 {{request()->routeIs('contact-us') ? 'underline-offset-8 underline' : ''}}">Register</a>
+            <a href="{{route('login')}}" class="hover:text-red-800 transition ease-out duration-300 hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
+            <a href="#" class="hover:text-red-800 transition ease-out duration-300 hover:underline` {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
         </div>
     </div>
 </nav>
 
 <!-- Dropdown menu for mobile -->
-<div id="mobile-menu" class="md:hidden hidden transition duration-1000 ease-in-out ">
-    <div class="mx-auto text-center">
-        <a href="#" class="block hover:text-white py-2 transition duration-500 ease-in-out hover:bg-red-800">Contact Us</a>
+<div id="mobile-menu" class="md:hidden hidden transition duration-1000 ease-in-out absolute top-50 left-50 z-50  w-full bg-white">
+    <div class="mx-auto text-center flex flex-col justify-center items-center">
+        <a href="{{route('login')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
+        <a href="#" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
     </div>
 </div>

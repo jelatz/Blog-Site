@@ -14,8 +14,9 @@
         </div>
         {{ $slot }}
     </main>
+    @if(!request()->is('login', 'register'))
     <x-partials.footer />
-
+    @endif
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

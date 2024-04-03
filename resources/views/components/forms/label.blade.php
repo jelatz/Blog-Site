@@ -1,6 +1,9 @@
-@props(['for']);
+@props([
+  'for' => '',
+  'name' => '',
+  'placeholder' => ''
+])
 
-
-<label {{$attributes->merge(['class', 'text-lg font-bold'])}} for="">
-    {{$slot}}
+<label {{$attributes->merge(['class' => 'text-sm'])}} for="{{$for}}" name="{{$name}}" placeholder="{{$placeholder}}">
+  {{$label}}
 </label>

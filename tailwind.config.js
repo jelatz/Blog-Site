@@ -14,9 +14,6 @@ export default {
             fontFamily: {
                 roboto: ["Roboto", "sans-serif"],
             },
-            backgroundImage: {
-                "home-hero": "url('/public/images/home-hero.jpg')",
-            },
             container: {
                 center: true,
                 padding: "1rem",

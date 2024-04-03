@@ -10,3 +10,8 @@ Route::get('/', function () {
 Route::get('/single-blog', function () {
     return view('pages.single-blog');
 })->name('single-blog');
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
