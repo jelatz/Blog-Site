@@ -1,4 +1,4 @@
-<nav class="p-4">
+<nav class="p-4 bg-red-800">
     <div class="flex justify-between items-center">
         <!-- Logo -->
       <x-logo></x-logo>
@@ -12,9 +12,14 @@
 
         <!-- Navigation links -->
         <div id="menu" class="hidden md:flex space-x-5">
+            @guest
             {{-- <a href="{{route('contact-us')}}" class="hover:text-red-800 {{request()->routeIs('contact-us') ? 'underline-offset-8 underline' : ''}}">Contact Us</a> --}}
-            <a href="{{route('login')}}" class="hover:text-red-800 transition ease-out duration-300 hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
-            <a href="#" class="hover:text-red-800 transition ease-out duration-300 hover:underline` {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
+            <a href="{{route('login')}}" class=" text-white transition ease-out duration-300 hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
+            <a href="{{route('register')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
+            @endguest
+            @auth()
+            <a href="{{route('profile')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
+            @endauth()
         </div>
     </div>
 </nav>
@@ -22,7 +27,12 @@
 <!-- Dropdown menu for mobile -->
 <div id="mobile-menu" class="md:hidden hidden transition duration-1000 ease-in-out absolute top-50 left-50 z-50  w-full bg-white">
     <div class="mx-auto text-center flex flex-col justify-center items-center">
+        @guest
         <a href="{{route('login')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
-        <a href="#" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
+        <a href="{{route('register')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
+        @endguest
+        @auth()
+        <a href="{{route('profile')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
+        @endauth()
     </div>
 </div>
