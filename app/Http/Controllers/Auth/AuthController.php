@@ -60,23 +60,24 @@ class AuthController extends Controller
 
             request()->session()->regenerate();
 
-            return redirect()->route('dashboard')->with('success', 'User created successfully');
+            return redirect()->route('dashboard')->with('success', 'You are successfully logged in!');
         }
 
         return redirect()->route('login')->withErrors(
             [
-                'email' => 'No User Found with the provided credentials.'
+                'email' => 'Email Incorrect',
+                'password' => 'Incorrect Password'
             ]);
         
     }
 
     public function logout()
     {
-        aut()->logout();
+        auth()->logout();
 
-        $request()->session()->invalidate();
-        $request()->session()->regenerateToken();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
 
-        return redirect()->route('dashboard')->with('success', 'logged out successfully');
+        return redirect()->route('home')->with('success', 'logged out successfully');
     }
 }

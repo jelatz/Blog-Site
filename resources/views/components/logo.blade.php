@@ -1,1 +1,1 @@
-<a {{$attributes->merge(['class' => 'text-white px-5 py-1 rounded-lg hover:cursor-pointer uppercase'])}} href="/">Blog Site Logo</a>
+<a {{$attributes->merge(['class' => 'text-white px-5 py-1 rounded-lg hover:cursor-pointer uppercase'])}} href="{{route('home')}}">Blog Site Logo</a>

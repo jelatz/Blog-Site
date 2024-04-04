@@ -1,5 +1,7 @@
 <x-guest-layout>
     @section('title', 'Home')
+    <x-success-message />
+
     <x-hero.hero>
         <img src="{{ asset('images/home-hero.jpg') }}" alt="" class="object-cover h-96 w-full">
         <x-hero.inner>

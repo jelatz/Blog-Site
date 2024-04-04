@@ -19,6 +19,10 @@
             @endguest
             @auth()
             <a href="{{route('profile')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
+            <form action="{{route('logout')}}" method="post">
+                @csrf
+                <button type="submit" class="text-white transition ease-out duration-300 hover:underline">Logout</button>
+            </form>
             @endauth()
         </div>
     </div>
@@ -33,6 +37,10 @@
         @endguest
         @auth()
         <a href="{{route('profile')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
+        <form action="{{route('logout')}}" method="post">
+            @csrf
+            <button type="submit" class="text-white transition ease-out duration-300 hover:underline">Logout</button>
+        </form>
         @endauth()
     </div>
 </div>
