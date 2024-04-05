@@ -1,8 +1,8 @@
 <x-guest-layout>
     @section('title', 'Register')
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-5 sm:w-[25rem]">
+        <h1 class="text-center font-semibold text-2xl my-2">Register</h1>
         <div class="border border-red-800 py-5 px-5 rounded-lg shadow-2xl">
-            <h1 class="text-center font-semibold">Register</h1>
             <form action="{{route('register')}}" method="post">
                 @csrf
                 <div class="mb-3">

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
+
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -49,27 +49,32 @@ class AuthController extends Controller
 
     public function authenticate()
     {
-        $validated = request()->validate(
-            [
-                'email' => 'required|email',
-                'password' => 'required|min:8'
-            ]
-        );
+        $credentials = request()->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ]);
 
-        if(auth()->attempt($validated)){
-
+        // $user = auth()->attempt(['email', $credentials['email']]);
+        
+        // Check if the user exists with the given email
+        $user = User::where('email', $credentials['email'])->first();
+        
+        if (!$user) {
+            // If no user exists with the provided email, return with an email error
+            return back()->withErrors(['email' => 'Email not registered!'])->withInput();
+        }
+        
+        // Attempt to authenticate with the provided credentials
+        if (auth()->attempt($credentials)) {
             request()->session()->regenerate();
-
             return redirect()->route('dashboard')->with('success', 'You are successfully logged in!');
         }
-
-        return redirect()->route('login')->withErrors(
-            [
-                'email' => 'Email Incorrect',
-                'password' => 'Incorrect Password'
-            ]);
-        
+    
+        // If authentication fails at this point, it means the password is incorrect.
+        return back()->withErrors(['password' => 'Incorrect Password!'])->withInput();
     }
+    
+    
 
     public function logout()
     {

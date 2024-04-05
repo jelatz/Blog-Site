@@ -3,7 +3,7 @@
 <head>
     <x-partials.head />
 </head>
-<body class="font-roboto">
+<body class="font-roboto min-h-screen">
     <header>
         <x-partials.navigation></x-partials.navigation>
     </header>
