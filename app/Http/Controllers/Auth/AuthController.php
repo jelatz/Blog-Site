@@ -46,32 +46,32 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-
+    // LOGIN AUTHENTICATION
     public function authenticate()
     {
         $credentials = request()->validate([
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
-
-        // $user = auth()->attempt(['email', $credentials['email']]);
         
-        // Check if the user exists with the given email
         $user = User::where('email', $credentials['email'])->first();
         
         if (!$user) {
-            // If no user exists with the provided email, return with an email error
             return back()->withErrors(['email' => 'Email not registered!'])->withInput();
         }
-        
-        // Attempt to authenticate with the provided credentials
         if (auth()->attempt($credentials)) {
             request()->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'You are successfully logged in!');
         }
-    
-        // If authentication fails at this point, it means the password is incorrect.
         return back()->withErrors(['password' => 'Incorrect Password!'])->withInput();
+    }
+
+    function forgotPassword(){
+        return view('auth.forgot-password');
+    }
+
+    function resetPassword(){
+        
     }
     
     

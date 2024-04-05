@@ -20,6 +20,10 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/register', [AuthController::class, 'store']);
 
+Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
+
+Route::post('/forgot-password', [AuthController::class, 'resetPassword']);
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/profile', function () {

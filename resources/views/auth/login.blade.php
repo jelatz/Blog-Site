@@ -2,7 +2,7 @@
     @section('title', 'Login')
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25rem]">
         <h1 class="text-center font-semibold my-2 text-2xl">Login</h1>
-        <div class="border border-red-800 py-5 px-5 rounded-lg shadow-2xl">
+        <div class="border border-red-800 py-3 px-5 rounded-lg shadow-2xl">
             <form action="{{route('login')}}" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -24,10 +24,14 @@
                 </div>
                 <div class="mb-3 flex itmes-center">
                     <x-forms.checkbox name="remember" label="Remember me" /><span class="ms-1 mt-[1px]">Remember Me</span>
+                    <span class="ms-auto"><a href="{{route('forgot-password')}}" class="hover:text-red-800">Forgot Password?</a></span>
                 </div>
                     <x-forms.submitButton>
                         Login
-                    </x-forms.submitButton>                
+                    </x-forms.submitButton>
+                    <div class="mt-5">
+                        <p>Don't have an account? <a href="{{route('register')}}" class="hover:text-red-800">Register Here!</a></p>                
+                    </div>
             </form>
         </div>
     </div>

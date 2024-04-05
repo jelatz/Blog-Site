@@ -14,7 +14,7 @@
         </div>
         {{ $slot }}
     </main>
-    @if(!request()->is('login', 'register'))
+    @if(!request()->is('login', 'register', 'forgot-password'))
     <x-partials.footer />
     @endif
     <!-- Include jQuery library -->
