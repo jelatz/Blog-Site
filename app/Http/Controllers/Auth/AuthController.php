@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+
 
 class AuthController extends Controller
 {
@@ -38,7 +39,9 @@ class AuthController extends Controller
             ]
         );
 
-        return redirect()->route('dashboard')->with('success', 'User created successfully');
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice')->with('success', 'Registration successful! Please verify your email address.');
     }
 
     // LINK TO LOGIN PAGE
