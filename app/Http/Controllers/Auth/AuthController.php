@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -27,7 +28,7 @@ class AuthController extends Controller
             [
                 'name' => 'required|min:3|max:40',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|confirmed|min:8'
+                'password' => 'required|confirmed'
             ]
         );
 
@@ -39,9 +40,11 @@ class AuthController extends Controller
             ]
         );
 
+        Auth::login($user);
+
         event(new Registered($user));
 
-        return redirect()->route('verification.notice')->with('success', 'Registration successful! Please verify your email address.');
+        return redirect()->route('verification.notice')->with('success', 'Registration successful! Please verify your email address. Check your email for the verification link.');
     }
 
     // LINK TO LOGIN PAGE
@@ -62,7 +65,7 @@ class AuthController extends Controller
         if (!$user) {
             return back()->withErrors(['email' => 'Email not registered!'])->withInput();
         }
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt($credentials, request()->filled('remember'))) {
             request()->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'You are successfully logged in!');
         }
@@ -83,9 +86,13 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
+        if (Auth::viaRemember()) {
+            request()->session()->regenerate();
+        } else {
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+        }
 
-        return redirect()->route('home')->with('success', 'logged out successfully');
+        return redirect()->route('login')->with('success', 'logged out successfully');
     }
 }

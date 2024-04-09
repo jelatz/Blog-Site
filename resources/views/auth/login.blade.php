@@ -23,14 +23,17 @@
                     @enderror
                 </div>
                 <div class="mb-3 flex itmes-center">
-                    <x-forms.checkbox name="remember" label="Remember me" /><span class="ms-1 mt-[1px]">Remember Me</span>
+                    <x-forms.checkbox name="remember" id="remember" label="Remember Me"/>
+                    <span class="ms-1 mt-[1px]">
+                        <label for="remember">Remember Me</label>
+                    </span>
                     <span class="ms-auto"><a href="{{route('forgot-password')}}" class="hover:text-red-800">Forgot Password?</a></span>
                 </div>
                     <x-forms.submitButton>
                         Login
                     </x-forms.submitButton>
                     <div class="mt-5">
-                        <p>Don't have an account? <a href="{{route('register')}}" class="hover:text-red-800">Register Here!</a></p>                
+                        <p class="text-sm">Don't have an account? <a href="{{route('register')}}" class="hover:text-red-800 block text-sm">Register Here!</a></p>                
                     </div>
             </form>
         </div>

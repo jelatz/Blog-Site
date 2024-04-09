@@ -44,8 +44,8 @@
                     </x-forms.submitButton>
             </form>
             <div class="flex mt-3 justify-center flex-col items-center">
-                <p>Already have an account?</p>
-                <a href="{{route('login')}}" class="hover:text-red-700">Click here to Login</a>
+                <p class="text-sm">Already have an account?</p>
+                <a href="{{route('login')}}" class="hover:text-red-700 text-sm">Click here to Login</a>
             </div>
         </div>
     </div>

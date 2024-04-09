@@ -1,7 +1,13 @@
 <nav class="p-4 bg-red-800">
     <div class="flex justify-between items-center">
         <!-- Logo -->
-      <x-logo></x-logo>
+        @guest
+        <x-logo :href="route('home')" />
+        @endguest
+
+        @auth()
+            <x-logo :href="route('dashboard')" />
+        @endauth
 
         <!-- Hamburger menu for mobile -->
         <button id="menu-toggle" class="focus:outline-none md:hidden">
@@ -13,16 +19,17 @@
         <!-- Navigation links -->
         <div id="menu" class="hidden md:flex space-x-5">
             @guest
-            {{-- <a href="{{route('contact-us')}}" class="hover:text-red-800 {{request()->routeIs('contact-us') ? 'underline-offset-8 underline' : ''}}">Contact Us</a> --}}
             <a href="{{route('login')}}" class=" text-white transition ease-out duration-300 hover:underline {{request()->routeIs('login') ? 'underline-offset-8 underline' : ''}}">Login</a>
             <a href="{{route('register')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('register') ? 'underline-offset-8 underline' : ''}}">Register</a>
             @endguest
             @auth()
+            @if(Auth::user()->hasVerifiedEmail())
             <a href="{{route('profile')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
             <form action="{{route('logout')}}" method="post">
                 @csrf
                 <button type="submit" class="text-white transition ease-out duration-300 hover:underline">Logout</button>
             </form>
+            @endif
             @endauth()
         </div>
     </div>
