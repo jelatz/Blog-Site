@@ -2,6 +2,7 @@
     'type' => 'checkbox',
     'name',
     'label',
+    
 ])
 
 <input 

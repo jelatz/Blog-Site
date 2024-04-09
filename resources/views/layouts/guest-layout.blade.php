@@ -4,9 +4,11 @@
     <x-partials.head />
 </head>
 <body class="font-roboto">
+    @if(request()->route()->getName() !== 'verification.notice')
     <header>
         <x-partials.navigation></x-partials.navigation>
     </header>
+    @endif
     <main>
         <div id="loading" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
             <!-- Here you need to include the SVG image properly -->
@@ -14,9 +16,11 @@
         </div>
         {{ $slot }}
     </main>
-    @if(!request()->is('login', 'register', 'forgot-password'))
+    @if(!request()->is('login', 'register', 'forgot-password') && request()->route()->getName() !== 'verification.notice')
     <x-partials.footer />
     @endif
+
+    {{-- SCRIPTS --}}
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

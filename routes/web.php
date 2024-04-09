@@ -19,7 +19,6 @@ Route::post('/email/verification-notification', function (Request $request) { $r
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () { return view('pages.dashboard'); })->name('dashboard');
     Route::get('/profile', function () { return view ('auth.profile'); })->name('profile');
-    // Route::get('/', function () { return view('pages.home'); })->name('home');
 });
 
 Route::get('/login',[AuthController::class, 'login'])->name('login');
@@ -35,4 +34,5 @@ Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name(
 Route::post('/forgot-password', [AuthController::class, 'resetPassword']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'postLogout']);
 

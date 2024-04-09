@@ -15,6 +15,10 @@ class AuthController extends Controller
     // LINK TO REGISTER PAGE
     public function register()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('auth.register');
     }
     // STORE NEW USER
@@ -50,49 +54,50 @@ class AuthController extends Controller
     // LINK TO LOGIN PAGE
     public function login()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('auth.login');
     }
     // LOGIN AUTHENTICATION
-    public function authenticate()
+    public function authenticate(Request $request)
     {
-        $credentials = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8',
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
-        
-        $user = User::where('email', $credentials['email'])->first();
-        
-        if (!$user) {
-            return back()->withErrors(['email' => 'Email not registered!'])->withInput();
-        }
-        if (auth()->attempt($credentials, request()->filled('remember'))) {
-            request()->session()->regenerate();
-            return redirect()->route('dashboard')->with('success', 'You are successfully logged in!');
-        }
-        return back()->withErrors(['password' => 'Incorrect Password!'])->withInput();
-    }
 
-    function forgotPassword(){
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard')->with('success', 'You are successfully logged in!');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput();
+    }
+    // FORGOT PASSWORD PAGE
+    function forgotPassword()
+    {
         return view('auth.forgot-password');
     }
-
-    function resetPassword(){
-        
-    }
-    
-    
-
-    public function logout()
+    // RESET PASSWORD
+    function resetPassword()
     {
-        auth()->logout();
 
-        if (Auth::viaRemember()) {
-            request()->session()->regenerate();
-        } else {
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-        }
-
-        return redirect()->route('login')->with('success', 'logged out successfully');
+    }
+    // LOGOUT
+    public function logout(Request $request)
+    {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login')->with('success', 'Logged out successfully');
+    }
+    public function postLogout()
+    {
+        return redirect()->route('dashboard');
     }
 }

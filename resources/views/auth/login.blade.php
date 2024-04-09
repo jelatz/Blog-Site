@@ -7,7 +7,7 @@
                 @csrf
                 <div class="mb-3">
                     <x-forms.label label="Email:" class="" />
-                    <x-forms.input type="text" name="email"  value="{{old('email')}}" />
+                    <x-forms.input type="text" name="email"  value="{{old('email')}}" required autofocus/>
                     @error('email')
                     <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
@@ -15,7 +15,7 @@
                 <div class="mb-3">
                     <x-forms.label label="Password:" class="" />
                     <div class="relative">
-                        <x-forms.input type="password" name="password" id="password" value="{{old('password')}}" />
+                        <x-forms.input type="password" name="password" id="password" required autocomplete="current-password" value="{{old('password')}}" />
                         <span class="absolute right-2 bottom-0" ><ion-icon name="eye" id="eye-pass"></ion-icon></span>
                     </div>
                     @error('password')
