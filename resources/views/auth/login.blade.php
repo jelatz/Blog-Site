@@ -23,11 +23,7 @@
                     @enderror
                 </div>
                 <div class="mb-3 flex itmes-center">
-                    <x-forms.checkbox name="remember" id="remember" label="Remember Me"/>
-                    <span class="ms-1 mt-[1px]">
-                        <label for="remember">Remember Me</label>
-                    </span>
-                    <span class="ms-auto"><a href="{{route('forgot-password')}}" class="hover:text-red-800">Forgot Password?</a></span>
+                    <a href="{{route('forgot-password')}}" class="hover:text-red-800">Forgot Password?</a>
                 </div>
                     <x-forms.submitButton>
                         Login

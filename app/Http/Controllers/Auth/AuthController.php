@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Password;
+
 
 
 class AuthController extends Controller
@@ -69,7 +70,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials, true)) {
+        if (Auth::attempt($credentials)) {
             request()->session()->regenerate();
 
             return redirect()->intended('dashboard')->with('success', 'You are successfully logged in!');
@@ -86,29 +87,26 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
     // RESET PASSWORD
-    function resetPassword()
+    function resetPassword(Request $request)
     {
+        $request->validate(['email' => 'required|email']);
 
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('success', __($status))
+            : back()->withErrors(['email' => __($status)]);
     }
     // LOGOUT
     public function logout(Request $request)
-    {
-        $email = $request->input('email');
-        $remember = $request->input('remember');
-    
+    {    
         Auth::logout();
-    
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    
-        if ($request->cookie('laravel_session')) {
-            return redirect('/login')
-                ->withInput(['email' => $email, 'remember' => $remember])
-                ->withCookie(cookie()->forget('laravel_session'));
-        }
-    
-        return redirect('/login')
-            ->withInput(['email' => $email, 'remember' => $remember]);
+
+        return redirect('/login')->with('success', 'You are successfully logged out!');
     }
     public function postLogout()
     {

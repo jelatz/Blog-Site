@@ -7,7 +7,7 @@
                 @csrf
                 <div class="mb-3">
                     <x-forms.label label="Email:" class="" />
-                    <x-forms.input type="text" name="email"  value="{{old('email')}}" placeholder="Email address registered" />
+                    <x-forms.input type="text" name="email"  value="{{old('email')}}" />
                     @error('email')
                     <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
