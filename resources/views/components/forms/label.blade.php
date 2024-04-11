@@ -4,6 +4,6 @@
   'placeholder' => ''
 ])
 
-<label {{$attributes->merge(['class' => 'text-sm'])}} for="{{$for}}" name="{{$name}}" placeholder="{{$placeholder}}">
+<label {{$attributes->merge(['class' => 'text-sm font-semibold'])}} for="{{$for}}" name="{{$name}}" placeholder="{{$placeholder}}">
   {{$label}}
 </label>

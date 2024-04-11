@@ -7,7 +7,7 @@
                 @csrf
                 <div class="mb-3">
                     <x-forms.label label="Name:" class="" />
-                    <x-forms.input type="text" name="name" value="{{old('name')}}" />
+                    <x-forms.input type="text" name="name" value="{{old('name')}}" required autofocus/>
                     @error('name')
                         <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
@@ -39,7 +39,7 @@
                         <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
                 </div>
-                    <x-forms.submitButton>
+                    <x-forms.submitButton class="w-full">
                         Register
                     </x-forms.submitButton>
             </form>

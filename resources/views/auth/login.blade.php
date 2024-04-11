@@ -1,13 +1,14 @@
 <x-guest-layout>
     @section('title', 'Login')
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25rem]">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25rem] px-14 sm:px-0">
         <h1 class="text-center font-semibold my-2 text-2xl">Login</h1>
+        <x-error-message />
         <div class="border border-red-800 py-3 px-5 rounded-lg shadow-2xl">
             <form action="{{route('login')}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <x-forms.label label="Email:" class="" />
-                    <x-forms.input type="text" name="email" value="{{old('email')}}" required autofocus/>
+                    <x-forms.label label="Email:"/>
+                    <x-forms.input type="email" name="email" value="{{ old('email') }}" required autofocus/>
                     @error('email')
                     <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
@@ -23,9 +24,9 @@
                     @enderror
                 </div>
                 <div class="mb-3 flex itmes-center">
-                    <a href="{{route('forgot-password')}}" class="hover:text-red-800">Forgot Password?</a>
+                    <a href="{{route('password.request')}}" class="hover:text-red-800">Forgot Password?</a>
                 </div>
-                    <x-forms.submitButton>
+                    <x-forms.submitButton class="w-full">
                         Login
                     </x-forms.submitButton>
                     <div class="mt-5">

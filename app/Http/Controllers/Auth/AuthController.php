@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Schedule;
+
 
 
 
 class AuthController extends Controller
 {
-    // LINK TO REGISTER PAGE
+    // REGISTER PAGE
     public function register()
     {
         if (Auth::check()) {
@@ -24,13 +26,9 @@ class AuthController extends Controller
         return view('auth.register');
     }
     // STORE NEW USER
-    public function store()
+    public function store(Request $request)
     {
-        //validate
-        //create the user
-        //login
-        //redirect
-        $validated = request()->validate(
+        $validated = $request->validate(
             [
                 'name' => 'required|min:3|max:40',
                 'email' => 'required|email|unique:users,email',
@@ -69,24 +67,31 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        
         if (Auth::attempt($credentials)) {
             request()->session()->regenerate();
 
             return redirect()->intended('dashboard')->with('success', 'You are successfully logged in!');
         }
 
+        if (!User::where('email', $credentials['email'])->exists()) {
+            return redirect()->route('login')->withErrors(['email' => 'Email not registered!'])->withInput();
+        }
+
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'password' => 'Incorrect password!',
         ])->withInput();
     }
 
     // FORGOT PASSWORD PAGE
     function forgotPassword()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.forgot-password');
     }
-    // RESET PASSWORD
+    // RESET REQUEST
     function resetPassword(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -95,13 +100,47 @@ class AuthController extends Controller
             $request->only('email')
         );
 
+        Schedule::command('auth:clear-resets')->everyFifteenMinutes();
+
         return $status === Password::RESET_LINK_SENT
             ? back()->with('success', __($status))
             : back()->withErrors(['email' => __($status)]);
     }
+
+    // SHOW RESET FORM
+    function showResetForm($token)
+    {
+        return view('auth.reset-password', ['token' => $token]);
+    }
+
+    // AFTER SUBMITTING THE RESET PASSWORD FORM
+    function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill(
+                    [
+                        'password' => Hash::make($request->password)
+                    ]
+                )->save();
+            }
+        );
+
+        return $status == Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('success', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
+    }
+
     // LOGOUT
     public function logout(Request $request)
-    {    
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

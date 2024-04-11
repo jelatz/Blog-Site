@@ -24,6 +24,7 @@
             @endguest
             @auth()
             @if(Auth::user()->hasVerifiedEmail())
+            
             <a href="{{route('profile')}}" class="text-white transition ease-out duration-300 hover:underline {{request()->routeIs('profile') ? 'underline-offset-8 underline' : ''}}">{{Auth::user()->name}}</a>
             <form action="{{route('logout')}}" method="post">
                 @csrf
