@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -17,30 +21,26 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!'); })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard'); })->name('dashboard');
-    Route::get('/profile', function () {
-        return view('auth.profile'); })->name('profile');
-});
-
 Route::middleware('guest')->group(function () {
-    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.request');
+    Route::get('/forgot-password', [PasswordController::class, 'forgotPassword'])->name('password.request');
 
-    Route::post('/forgot-password', [AuthController::class, 'resetPassword'])->name('password.email');
+    Route::post('/forgot-password', [PasswordController::class, 'resetPassword'])->name('password.email');
 
-    Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+    Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
 
-    Route::post('/reset-password', [AuthController::class, 'reset'])->name('password.update');
+    Route::post('/reset-password', [PasswordController::class, 'reset'])->name('password.update');
 
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
 
-    Route::post('/login', [AuthController::class, 'authenticate']);
+    Route::post('/login', [LoginController::class, 'authenticate']);
 
-    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/register', [RegisterController::class, 'register'])->name('register');
 
-    Route::post('/register', [AuthController::class, 'store']);
+    Route::post('/register', [RegisterController::class, 'store']);
 });
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/logout', [AuthController::class, 'postLogout']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LogoutController::class, 'postLogout']);
+});
+
