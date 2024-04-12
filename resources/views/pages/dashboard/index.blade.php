@@ -2,6 +2,7 @@
     @section('title', 'Home')
     <x-success-message />
     <div class="container py-10">
+        <x-partials.search />
         <x-blog.blog-layout>
             <figure>
                 <img src="" alt="image">
