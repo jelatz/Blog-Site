@@ -11,7 +11,7 @@ Route::get('/', [HomeController::class, 'index'] )->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
     Route::get('/profile', function () {
-        return view('auth.profile'); })->name('profile');
+        return view('pages.profile.index'); })->name('profile');
 });
 
 require __DIR__.'/auth.php';

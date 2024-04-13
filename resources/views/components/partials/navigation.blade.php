@@ -8,13 +8,12 @@
         @auth()
             <x-logo :href="route('dashboard')" />
         @endauth
-          <!-- Hamburger menu for mobile -->
-          <button id="menu-toggle" class="focus:outline-none md:hidden">
+        <!-- Hamburger menu for mobile -->
+        <button id="menu-toggle" class="focus:outline-none md:hidden">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         </button>
-
         <div id="menu" class="hidden md:flex space-x-3">
             @guest
                 <a href="{{ route('login') }}"
@@ -24,13 +23,13 @@
             @endguest
             @auth()
                 @if (Auth::user()->hasVerifiedEmail())
-                {{-- <nav class="hidden md:flex justify-between space-x-5"> --}}
-                    <a href="{{route('dashboard')}}" class="text-white">Home</a>
-                    <a href="#" class="text-white">MyBlog</a>
-                {{-- </nav> --}}
+                    {{-- <nav class="hidden md:flex justify-between space-x-5"> --}}
+                    <a href="{{ route('dashboard') }}" class="text-white leading-8">Home</a>
+                    <a href="#" class="text-white leading-8">MyBlog</a>
+                    {{-- </nav> --}}
                     <x-dropdown class="">
                         {{ Auth::user()->name }}
-                        <div class="absolute text-black w-[200px] top-11 -right-4 space-y-1 bg-neutral-200 z-50 py-2 hidden"
+                        <div class="absolute text-black w-[200px] top-12 -right-1 space-y-1 bg-neutral-200 z-50 py-2 hidden"
                             id="dropdown-menu">
                             <a href="{{ route('profile') }}" class="hover:text-red-800 hover:underline">Edit Profile</a>
                             <form action="{{ route('logout') }}" method="post">
@@ -56,13 +55,17 @@
                 class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline` {{ request()->routeIs('register') ? 'underline-offset-8 underline' : '' }}">Register</a>
         @endguest
         @auth()
-            <a href="{{route('dashboard')}}" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">Dashboard</a>
-            <a href="#" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">MyBlog</a>
+            <a href="{{ route('dashboard') }}"
+                class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">Dashboard</a>
+            <a href="#"
+                class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">MyBlog</a>
             <a href="{{ route('profile') }}"
-                class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline {{ request()->routeIs('profile') ? 'underline-offset-8 underline' : '' }}">Edit Profile</a>
+                class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline {{ request()->routeIs('profile') ? 'underline-offset-8 underline' : '' }}">Edit
+                Profile</a>
             <form action="{{ route('logout') }}" method="post" class="w-full">
                 @csrf
-                <button type="submit" class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">Logout</button>
+                <button type="submit"
+                    class="py-3 hover:bg-red-800 transition ease-out duration-300 w-full hover:text-white hover:underline">Logout</button>
             </form>
         @endauth()
     </div>
