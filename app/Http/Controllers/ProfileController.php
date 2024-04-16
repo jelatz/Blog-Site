@@ -30,6 +30,10 @@ class ProfileController extends Controller
         $user->save();
     
         return back()->with('success', 'Profile updated successfully');
+
+        if(!$validated){
+            return back()->with('error', 'Profile update failed');
+        }
     }
 
     
