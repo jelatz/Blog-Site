@@ -7,14 +7,14 @@
                 @csrf
                 <div class="mb-3">
                     <x-forms.label label="Name:" class="" />
-                    <x-forms.input type="text" name="name" value="{{old('name')}}" required autofocus/>
+                    <x-forms.input type="text" name="name" value="{{old('name')}}" required autofocus class="w-full"/>
                     @error('name')
                         <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <x-forms.label label="email" />
-                    <x-forms.input type="email" name="email" value="{{old('email')}}" />
+                    <x-forms.input type="email" name="email" value="{{old('email')}}"  class="w-full"/>
                     @error('email')
                         <span class="block text-sm text-red-600 mt-2">{{$message}}</span>
                     @enderror
@@ -22,7 +22,7 @@
                 <div class="mb-3">
                     <x-forms.label label="Password:" class="" />
                     <div class="relative">
-                        <x-forms.input type="password" name="password" value="{{old('password')}}" id="password" />
+                        <x-forms.input type="password" name="password" value="{{old('password')}}" id="password"  class="w-full"/>
                         <span class="absolute right-2 bottom-0" ><ion-icon name="eye" id="eye-pass"></ion-icon></span>
                     </div>
                     @error('password')
@@ -32,7 +32,7 @@
                 <div class="mb-3">
                     <x-forms.label label="Confirm Password" />
                     <div class="relative">
-                        <x-forms.input type="password" name="password_confirmation" id="password_confirmation" value="{{old('password_confirmation')}}" />
+                        <x-forms.input type="password" name="password_confirmation" id="password_confirmation" value="{{old('password_confirmation')}}"  class="w-full"/>
                         <span class="absolute right-2 bottom-0" ><ion-icon name="eye" id="eye-confirm-pass"></ion-icon></span>
                     </div>
                     @error('password_confirmation')

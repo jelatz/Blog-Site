@@ -23,11 +23,9 @@
             @endguest
             @auth()
                 @if (Auth::user()->hasVerifiedEmail())
-                    {{-- <nav class="hidden md:flex justify-between space-x-5"> --}}
                     <a href="{{ route('dashboard') }}" class="text-white leading-8">Home</a>
-                    <a href="#" class="text-white leading-8">MyBlog</a>
-                    {{-- </nav> --}}
-                    <x-dropdown class="">
+                    <a href="{{route('blog')}}" class="text-white leading-8">MyBlog</a>
+                    <x-dropdown :src="auth()->user()->getImageURL()">
                         {{ Auth::user()->name }}
                         <div class="absolute text-black w-[200px] top-12 -right-1 space-y-1 bg-neutral-200 z-50 py-2 hidden"
                             id="dropdown-menu">

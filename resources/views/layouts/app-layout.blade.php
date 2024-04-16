@@ -14,7 +14,11 @@
         </div>
         {{ $slot }}
     </main>
+    @if(request()->routeIs(['profile']))
+    <x-partials.footer class="fixed bottom-0" />
+    @else
     <x-partials.footer />
+    @endif
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Models;
+<?php namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'image',
         'password',
     ];
 
@@ -44,5 +43,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getImageURL()
+    {
+        if ($this->image) {
+            return url('storage/' . $this->image);
+        }
+        return '<ion-icon name="person-circle-outline"></ion-icon>';
     }
 }

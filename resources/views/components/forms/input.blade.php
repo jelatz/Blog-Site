@@ -1,11 +1,10 @@
 @props([
     'type' => 'text',
     'name',
-    'value',
-
 ])
 
 <input 
     type = "{{$type}}"
     name = "{{$name}}"
-{{$attributes->merge(['class' => 'focus:border-2 rounded-lg ps-2 block h-8 my-2 w-full'])}}>
+  
+{{$attributes->merge(['class' => 'focus:border-2 rounded-lg ps-2 block h-8 my-2'])}}>
