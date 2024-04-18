@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'image',
+        'status',
         'password',
     ];
 
@@ -50,6 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if ($this->image) {
             return url('storage/' . $this->image);
         }
-        return '<ion-icon name="person-circle-outline"></ion-icon>';
+    
+        return asset('images/person-circle-sharp.svg');
     }
-}
+}    

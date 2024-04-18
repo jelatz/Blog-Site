@@ -15,6 +15,11 @@ class BlogController extends Controller
         return view('dashboard');
     }
 
+    public function showAll()
+    {
+        return view('pages.blog.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -15,6 +15,7 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+        $accept = 'image/jpg, image/png, image/jpeg';
         $validated = $request->validate([
             'name' => 'string|max:60',
             'email' => 'email',
@@ -29,7 +30,7 @@ class ProfileController extends Controller
         }
         $user->save();
     
-        return back()->with('success', 'Profile updated successfully');
+        return back()->compact($accept)->with('success', 'Profile updated successfully');
 
         if(!$validated){
             return back()->with('error', 'Profile update failed');
