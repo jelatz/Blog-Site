@@ -20,14 +20,14 @@
                 <div class="mb-3">
                     <x-forms.label label="Email:" for="email" />
                     <x-forms.input name="email" class="w-96" value="{{ Auth::user()->email }}" />
-                    @error('name')
+                    @error('email')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <x-forms.label label="Password:" for="password" />
                     <x-forms.input type="password" name="password" class="w-96" />
-                    @error('name')
+                    @error('')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -35,10 +35,10 @@
                     <x-forms.submitButton class="w-full md:w-fit h-fit">
                         Update Profile
                     </x-forms.submitButton>
-                    <x-forms.deleteButton type="button">
-                        Delete Account
-                    </x-forms.deleteButton>
                 </div>
             </form>
+        </div>
+        <div class="bg-slate-200 my-5 md:p-10 p-4">
+            <x-modals.modal />
         </div>
 </x-app-layout>

@@ -3,6 +3,7 @@
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25rem] px-14 sm:px-0">
         <h1 class="text-center font-semibold my-2 text-2xl">Login</h1>
         <x-error-message />
+        <x-success-message />
         <div class="border border-red-800 py-3 px-5 rounded-lg shadow-2xl">
             <form action="{{route('login')}}" method="POST">
                 @csrf

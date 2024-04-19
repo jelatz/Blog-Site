@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class ProfileController extends Controller
 {
@@ -22,33 +24,46 @@ class ProfileController extends Controller
             'email' => 'email',
             'profileImage' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
-    
+
         $user = auth()->user();
-    
+
         if ($request->hasFile('profileImage')) {
             $imagePath = $request->file('profileImage')->store('profile', 'public');
             $user->image = $imagePath;
         }
         $user->save();
-    
-        return back()->compact($accept)->with('success', 'Profile updated successfully');
 
-        if(!$validated){
+        return back()->with('success', 'Profile updated successfully');
+
+        if (!$validated) {
             return back()->with('error', 'Profile update failed');
         }
     }
 
-    public function destroy($id){
-        if($id != auth()->user()->$id){
-            abort(403, 'Unauthorized Action');
-        }
-        $id->delete();
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
 
+    public function destroy(Request $request)
+    {
+        $validated = $request->validate([
+            'password' => 'required'
+        ]);
+    
+        $user = auth()->user();
+    
+        if (!Hash::check($validated['password'], $user->password)) {
+            return back()->with([
+                'modal' => 'account-deletion',
+                'error' => 'Password incorrect' 
+            ]);
+        }
+    
+        $user->delete();
+    
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
         return redirect('/login')->with('success', 'Account deleted successfully');
     }
-
     
-}
+
+    }

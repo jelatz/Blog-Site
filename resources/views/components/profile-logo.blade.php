@@ -9,7 +9,7 @@
 
 <div class="relative group w-32 h-32 cursor-pointer">
     <input type="file" id="profileImageInput" name="profileImage" class="hidden" accept="{{ $accept }}" />
-    <img src="{{$src}}" alt="{{ $alt }}" class="w-full h-full object-fill rounded-full bg-red-800" name="profile-image">
+    <img src="{{ $src }}" alt="{{ $alt }}" class="w-full h-full object-fill rounded-full bg-red-800" name="profile-image">
     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 flex rounded-full items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
         <ion-icon name="eye-outline" class="text-white text-lg"></ion-icon>
     </div>

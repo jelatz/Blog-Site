@@ -54,4 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
     
         return asset('images/person-circle-sharp.svg');
     }
+
+    public function blogs(){
+        return $this->hasMany(Blog::class);
+    }
 }    
