@@ -12,8 +12,12 @@
             <!-- Here you need to include the SVG image properly -->
             <img src="{{ asset('svg/Spin.svg') }}" alt="Loading Spinner" class="w-16 h-16">
         </div>
+
+        {{-- MODAL --}}
+        
         {{ $slot }}
     </main>
+    <x-modal />
     @if(request()->routeIs(['profile']))
     <x-partials.footer class="fixed bottom-0" />
     @else

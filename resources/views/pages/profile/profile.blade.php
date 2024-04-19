@@ -2,7 +2,7 @@
     <div class="container-sm md:container px-5 py-24">
         <x-header-title title="Profile Information" />
         <x-success-message class="mb-5" />
-        <div class="bg-slate-200 my-2 p-10">
+        <div class="bg-slate-200 my-2 md:p-10 p-4">
             <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
@@ -31,9 +31,14 @@
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-                <x-forms.submitButton class="w-fit mt-4">
-                    Update Profile
-                </x-forms.submitButton>
+                <div class="flex flex-col md:flex-row space-y-3 md:space-x-3 md:space-y-0 mt-5">
+                    <x-forms.submitButton class="w-full md:w-fit h-fit">
+                        Update Profile
+                    </x-forms.submitButton>
+                    <x-forms.deleteButton type="button">
+                        Delete Account
+                    </x-forms.deleteButton>
+                </div>
             </form>
         </div>
 </x-app-layout>

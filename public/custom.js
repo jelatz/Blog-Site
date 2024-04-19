@@ -2,11 +2,7 @@
 $(document).ready(function () {
     $('#menu-toggle').click(function () {
         $('#mobile-menu').toggleClass('hidden');
-    });
-    // document.getElementById('menu-toggle').addEventListener('click', function () {
-    //     document.getElementById('mobile-menu').classList.toggle('hidden');
-    // });
-   
+    });   
     $('#eye-pass').click(function () {
         if($('#eye-pass').attr('name') == 'eye'){
         $('#password').attr('type', 'text');
@@ -27,4 +23,32 @@ $(document).ready(function () {
             $('#eye-confirm-pass').attr('name', 'eye');
         }
     });
+
+    // modal.js
+const modal = document.getElementById('modal');
+
+// Show the modal
+function showModal() {
+    modal.classList.remove('hidden');
+}
+
+// Hide the modal
+function hideModal() {
+    modal.classList.add('hidden');
+}
+
+// Add event listeners to show/hide the modal
+document.addEventListener('DOMContentLoaded', function() {
+    const openModalButtons = document.querySelectorAll('[data-open-modal]');
+    const closeModalButtons = document.querySelectorAll('[data-close-modal]');
+
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', showModal);
+    });
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', hideModal);
+    });
+});
+
 });
