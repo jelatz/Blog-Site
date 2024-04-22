@@ -7,7 +7,6 @@
                 @csrf
                 @method('put')
                 <div class="mb-5">
-                    {{-- <x-sub-title title="Edit Profile"/> --}}
                     <x-profile-logo :src="$user->getImageURL()" />
                 </div>
                 <div class="mb-3">

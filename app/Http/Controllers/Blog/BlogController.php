@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BlogController extends Controller
 {
@@ -31,10 +32,30 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // Update the store method
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|min:150',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg'
+        ]);
+    
+        $blog = new Blog();
+        $blog->user_id = auth()->id();
+        $blog->title = $validated['title'];
+        $blog->content = $validated['content'];
+    
+        if ($request->hasFile('logo')) {
+            $imagePath = $request->file('logo')->store('blog', 'public');
+            $blog->logo = $imagePath;
+        }
+    
+        $blog->save();
+        return redirect()->route('blog.show', ['blog' => $blog->id])->with('success', 'Blog post created successfully!');
     }
+    
+
 
     /**
      * Display the specified resource.
