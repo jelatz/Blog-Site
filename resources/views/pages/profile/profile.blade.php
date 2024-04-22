@@ -39,6 +39,6 @@
             </form>
         </div>
         <div class="bg-slate-200 my-5 md:p-10 p-4">
-            <x-modals.modal />
+            <x-modals.delete-account />
         </div>
 </x-app-layout>
