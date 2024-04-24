@@ -3,7 +3,7 @@
         <x-header-title title="Create Blog" class="mb-5"/>
         <form action="{{route('blog.store')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <x-blog.blog-logo src="{{asset('images/placeholder.png')}}" class="mx-auto"/>
+            <x-blog.blog-logo src="{{$blog->getImageURL()}}" class="mx-auto"/>
             <div class="my-3">
                 <x-forms.label :for="'title'" :label="'Title'" class="text-xl text-center"/>
                 <x-forms.input name="title" class="md:w-[60%] md:h-fit md:text-center mx-auto text-xl" value="{{old('title')}}"/>

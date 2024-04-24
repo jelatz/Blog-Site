@@ -13,7 +13,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $blogs = Blog::latest()->paginate(6);
+        return view('dashboard', compact('blogs'));
     }
 
     public function showAll()
@@ -26,7 +27,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('pages.blog.create');
+        $blog = new Blog();
+        return view('pages.blog.create', compact('blog'));
     }
 
     /**
