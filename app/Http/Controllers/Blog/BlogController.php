@@ -14,12 +14,13 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->paginate(6);
-        return view('dashboard', compact('blogs'));
+        return view('dashboard', ['blogs'=> Blog::all()]);
     }
 
     public function showAll()
     {
-        return view('pages.blog.index');
+        $blogs = Blog::latest()->paginate(6);
+        return view('pages.blog.index', ['blogs' => $blogs]);
     }
 
     /**
@@ -38,7 +39,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|max:100',
             'content' => 'required|min:150',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
@@ -52,12 +53,12 @@ class BlogController extends Controller
             $imagePath = $request->file('logo')->store('blog', 'public');
             $blog->logo = $imagePath;
         }
-    
-        $blog->save();
-        return redirect()->route('blog.show', ['blog' => $blog->id])->with('success', 'Blog post created successfully!');
-    }
-    
 
+        $blog->save();
+        return route('blog', [
+            'blogs' => Blog::latest()->paginate(6)
+        ]);
+    }
 
     /**
      * Display the specified resource.
