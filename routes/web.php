@@ -7,7 +7,7 @@ use App\Http\Controllers\Blog\BlogController;
 
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // PROFILE ROUTES
@@ -20,6 +20,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(BlogController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
         Route::get('blog', 'showAll')->name('blog');
+        Route::get('/blog/{blog}', 'show')->name('blog.show');
+        Route::get('/blog/{blog}/edit', 'edit')->name('blog.edit');
+        Route::delete('/blog/{blog}', 'destroyx')->name('blog.delete');
         Route::get('/blog/create', 'create')->name('blog.create');
         Route::post('/blog/store', 'store')->name('blog.store');
     });

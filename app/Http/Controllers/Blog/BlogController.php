@@ -14,8 +14,9 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->paginate(6);
-        return view('dashboard', ['blogs'=> Blog::all()]);
+        return view('dashboard', ['blogs' => $blogs]);
     }
+    
 
     public function showAll()
     {
@@ -53,27 +54,26 @@ class BlogController extends Controller
             $imagePath = $request->file('logo')->store('blog', 'public');
             $blog->logo = $imagePath;
         }
-
+    
         $blog->save();
-        return route('blog', [
-            'blogs' => Blog::latest()->paginate(6)
-        ]);
+        return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
     }
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Blog $blog)
     {
-        //
+        return view('pages.blog.show', ['blog' => $blog]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Blog $blog)
     {
-        //
+        return view('pages.blog.edit', ['blog' => $blog]);
     }
 
     /**
@@ -87,8 +87,14 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Blog $blog)
     {
-        //
+
+        if($blog->user_id != auth()->id()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        $blog->delete();
+        return redirect()->route('dashboard')->with('success', 'Blog deleted successfully');
     }
 }

@@ -12,5 +12,5 @@
     cols = "{{$cols}}"
   
 {{$attributes->merge(['class' => 'focus:border-2 rounded-lg ps-2 block my-2 w-full'])}}>
-
+{{$slot}}
 </textarea>
