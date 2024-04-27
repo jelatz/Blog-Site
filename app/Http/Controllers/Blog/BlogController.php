@@ -29,8 +29,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $blog = new Blog();
-        return view('pages.blog.create', compact('blog'));
+
+        return view('pages.blog.create', ['blog' => new Blog()]);
     }
 
     /**
@@ -56,7 +56,7 @@ class BlogController extends Controller
         }
     
         $blog->save();
-        return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
+        return redirect()->route('blog')->with('success', 'Blog created successfully');
     }
     
 
@@ -79,9 +79,27 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Blog $blog)
     {
-        //
+        // Make sure the user is the owner of the blog
+        if($blog->user_id != auth()->id()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        $formFields = $request->validate([
+            'title' => 'required|max:100',
+            'content' => 'required|min:150',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg'
+        ]);
+
+        if($request->hasFile('logo')){
+            $imagePath = $request->file('logo')->store('blog', 'public');
+            $formFields['logo'] = $imagePath;
+        }
+
+        $blog->update($formFields);
+
+        return back()->with('success', 'Blog updated successfully');
     }
 
     /**

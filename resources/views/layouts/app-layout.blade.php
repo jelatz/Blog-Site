@@ -15,7 +15,7 @@
         {{ $slot }}
     </main>
     @if(request()->routeIs(['profile']))
-    <x-partials.footer class="fixed bottom-0" />
+    <x-partials.footer class="" />
     @else
     <x-partials.footer />
     @endif

@@ -10,28 +10,21 @@
     </x-hero.hero>
     <section class="container py-10">
         <div class="flex w-full justify-center md:justify-between items-center gap-y-10">
-            {{-- <x-blog.blog-layout>
+            @foreach($blogs as $blog)
+            <x-blog.blog-layout :blog="$blog">
                 <figure class="w-full md:w-1/4 text-center">
-                    <img src="{{ asset('images/home-hero.jpg') }}" alt="Sample Image" class="h-34 w-80 mx-auto">
-                    <p class="text-center pt-2">Blog Title</p>
-                    <p class="text-center">Author</p>
+                    <img src="{{$blog->getImageURL()}}" alt="Sample Image" class="h-34 w-80 mx-auto">
+                    <p class="text-center pt-2">{{$blog->title}}</p>
+                    <p class="text-center">{{$blog->user->name}}</p>
                 </figure>
                 <div class="w-full md:3/4">
-                    <p class="line-clamp-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                        Deserunt totam eligendi iusto sed. Temporibus repellat possimus consectetur assumenda. Vel quo
-                        cupiditate voluptas commodi quae vitae quidem ut ipsa corporis officiis!Lorem ipsum dolor sit amet
-                        consectetur, adipisicing elit. Deserunt totam eligendi iusto sed. Temporibus repellat possimus
-                        consectetur assumenda. Vel quo cupiditate voluptas commodi quae vitae quidem ut ipsa corporis
-                        officiis!
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt totam eligendi iusto sed.
-                        Temporibus repellat possimus consectetur assumenda. Vel quo cupiditate voluptas commodi quae vitae
-                        quidem ut ipsa corporis officiis!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-                        totam eligendi iusto sed. Temporibus repellat possimus consectetur assumenda. Vel quo cupiditate
-                        voluptas commodi quae vitae quidem ut ipsa corporis officiis!    
+                    <p class="line-clamp-5">
+                        {{ $blog->content }}   
                     </p>
-                    <blockquote class="text-start mt-2">Author name</blockquote>
+                    <blockquote class="text-start mt-2">{{$blog->user->name}}</blockquote>
                 </div>
-            </x-blog.blog-layout> --}}
+            </x-blog.blog-layout>
+            @endforeach
         </div>
     </section>
 </x-guest-layout>

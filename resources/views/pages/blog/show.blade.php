@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Blog Title')
         <div class="container px-3 md:px-10 py-10">
-            <a href="{{ route('blog') }}" class="text-white rounded-full bg-red-800 px-4 py-2 leading-tight my-3 flex items-center w-fit"><ion-icon name="arrow-back"></ion-icon> Back
+            <a href="{{(!auth()->user()) ? route('home') : route('blog') }}" class="text-white rounded-full bg-red-800 px-4 py-2 leading-tight my-3 flex items-center w-fit"><ion-icon name="arrow-back"></ion-icon> Back
             </a>
             <x-success-message />
             <div class="flex flex-col justify-center items-center">

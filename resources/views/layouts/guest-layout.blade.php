@@ -15,7 +15,7 @@
         {{ $slot }}
     </main>
     @if(request()->routeIs(['login','register','password.request','password.reset','verification.notice']))
-    <x-partials.footer class="absolute bottom-0" />
+    <x-partials.footer class="fixed bottom-0" />
     @else
     <x-partials.footer />
     @endif

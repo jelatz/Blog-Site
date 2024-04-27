@@ -1,11 +1,13 @@
 <x-app-layout>
     @section('title', 'Edit')
-    <div class="pt-5 px-5 md:container">
+    <x-success-message />
+    <div class="py-5 px-5 md:container">
         <a href="{{ route('blog') }}" class="text-white rounded-full bg-red-800 px-4 py-2 leading-tight my-3 flex items-center w-fit"><ion-icon name="arrow-back"></ion-icon> Back
         </a>
         <x-header-title title="Edit Blog" class="mb-5"/>
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="{{route('blog.update' , $blog->id)}}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <x-blog.blog-logo src="{{$blog->getImageURL()}}" class="mx-auto"/>
             <div class="my-3">
                 <x-forms.label :for="'title'" :label="'Title'" class="text-xl text-center"/>

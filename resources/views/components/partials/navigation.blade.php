@@ -29,7 +29,7 @@
                         {{ Auth::user()->name }}
                         <div class="absolute text-black w-[200px] top-12 -right-1 space-y-1 bg-neutral-200 z-50 py-2 hidden"
                             id="dropdown-menu">
-                            <a href="{{ route('profile') }}" class="hover:text-red-800 hover:underline">Edit Profile</a>
+                            <a href="{{ route('profile') }}" class="hover:text-red-800 block hover:underline w-auto">Edit Profile</a>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <input type="submit" class="hover:underline hover:text-red-800" value="Logout">
