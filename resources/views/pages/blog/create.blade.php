@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Create Blog')
     <div class="container py-16">
         <x-header-title title="Create Blog" class="mb-5"/>
         <form action="{{route('blog.store')}}" method="post" enctype="multipart/form-data">

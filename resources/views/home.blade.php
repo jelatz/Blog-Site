@@ -9,14 +9,14 @@
         </x-hero.inner>
     </x-hero.hero>
     <section class="container py-10">
-        <div class="flex w-full justify-center md:justify-between items-center gap-y-10">
+        <div class="flex w-full justify-center md:justify-between items-center gap-y-10 flex-wrap">
             @foreach($blogs as $blog)
             <x-blog.blog-layout :blog="$blog">
-                <figure class="w-full md:w-1/4 text-center">
-                    <img src="{{$blog->getImageURL()}}" alt="Sample Image" class="h-34 w-80 mx-auto">
-                    <p class="text-center pt-2">{{$blog->title}}</p>
-                    <p class="text-center">{{$blog->user->name}}</p>
+                <figure class="h-32 grid items-center">
+                    <img src="{{$blog->getImageURL()}}" alt="Sample Image" class="w-32">
                 </figure>
+                <p class="text-center pt-2">{{$blog->title}}</p>
+                <p class="text-center">{{$blog->user->name}}</p>
                 <div class="w-full md:3/4">
                     <p class="line-clamp-5">
                         {{ $blog->content }}   

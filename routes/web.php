@@ -11,7 +11,7 @@ use App\Http\Controllers\Blog\BlogController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::middleware(['auth', 'verified', PreventBackHistory::class])->group(function () {
+Route::middleware(['auth', PreventBackHistory::class])->group(function () {
     // PROFILE ROUTES
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index')->name('profile');
@@ -21,7 +21,7 @@ Route::middleware(['auth', 'verified', PreventBackHistory::class])->group(functi
     // BLOG ROUTES
     Route::controller(BlogController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
-        Route::get('/blog/create', 'create')->name('blog.create');
+        Route::get('/createBlog', 'create')->name('create');
         Route::get('blog', 'showAll')->name('blog');
         Route::get('/blog/{blog}/edit', 'edit')->name('blog.edit');
         Route::delete('/blog/{blog}', 'destroy')->name('blog.delete');

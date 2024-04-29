@@ -13,23 +13,19 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::latest()->paginate(6);
-        return view('dashboard', ['blogs' => $blogs]);
+        return view('dashboard', ['blogs' => Blog::latest()->filter(request(['search']))->paginate(3)]);
     }
-    
 
     public function showAll()
     {
         $blogs = Blog::latest()->paginate(6);
-        return view('pages.blog.index', ['blogs' => $blogs]);
+        return view('pages.blog.index', ['blogs' => Blog::latest()->paginate(3)]);
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
         return view('pages.blog.create', ['blog' => new Blog()]);
     }
 
@@ -44,21 +40,21 @@ class BlogController extends Controller
             'content' => 'required|min:150',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
-    
+
         $blog = new Blog();
         $blog->user_id = auth()->id();
         $blog->title = $validated['title'];
         $blog->content = $validated['content'];
-    
+
         if ($request->hasFile('logo')) {
             $imagePath = $request->file('logo')->store('blog', 'public');
             $blog->logo = $imagePath;
         }
-    
+
         $blog->save();
         return redirect()->route('blog')->with('success', 'Blog created successfully');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -82,7 +78,7 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         // Make sure the user is the owner of the blog
-        if($blog->user_id != auth()->id()){
+        if ($blog->user_id != auth()->id()) {
             abort(403, 'Unauthorized Action');
         }
 
@@ -92,7 +88,7 @@ class BlogController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
-        if($request->hasFile('logo')){
+        if ($request->hasFile('logo')) {
             $imagePath = $request->file('logo')->store('blog', 'public');
             $formFields['logo'] = $imagePath;
         }
@@ -108,7 +104,7 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
 
-        if($blog->user_id != auth()->id()){
+        if ($blog->user_id != auth()->id()) {
             abort(403, 'Unauthorized Action');
         }
 
